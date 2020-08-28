@@ -14,8 +14,16 @@ public class Selecciones {
     /**
      * @param args the command line arguments
      */
+    
+
+    
     public static void main(String[] args) {
+     
         // TODO code application logic here
+       Segmentador p = new Segmentador();
+       p.selecciones();
+       
+   
     }
     
 }
