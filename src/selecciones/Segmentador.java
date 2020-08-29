@@ -11,13 +11,8 @@ package selecciones;
  */
 public class Segmentador {
     
-      public void selecciones(){
-        int Matriz_selecciones[][] = {{0,1,2,3,4,5,6,7,8,9},
-                                      {1,0,1,1,0,0,1,1,0,1},
-                                      {2,1,0,1,0,0,1,1,0,1},
-                                      {3,0,1,1,0,0,1,1,0,1},
-                                      {4,1,1,1,0,0,1,1,0,1},
-                                      {5,1,1,1,0,0,1,1,0,1}};
+      public int[][] selecciones(int [][] Matriz_selecciones){
+        
            
         int x = 0,y=0;
         int Arreglo[][];
@@ -44,14 +39,7 @@ public class Segmentador {
         //  System.out.println("Filas: " + Arreglo.length);
          // System.out.println("Columnas: " + Arreglo[0].length);
         
-        for(int i = 0;i < Arreglo.length;i++){
-            System.out.println("Seleccion: " + Arreglo[i][x]);
-            for(int k = 1; k < Arreglo[0].length;k++){
-                 System.out.println("No relaciones: " + Arreglo[i][k]);
-                  
-            }
-           
-        }
-       
+      
+       return Arreglo;
     }
 }

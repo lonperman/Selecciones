@@ -20,8 +20,8 @@ public class Selecciones {
     public static void main(String[] args) {
      
         // TODO code application logic here
-       Segmentador p = new Segmentador();
-       p.selecciones();
+       Ingenua I = new Ingenua();
+       I.ingenua();
        
    
     }
