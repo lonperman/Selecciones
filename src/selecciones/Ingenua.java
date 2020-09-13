@@ -11,9 +11,9 @@ package selecciones;
  */
 public class Ingenua {
     
-    public void ingenua() {
+    public void ingenua(int Matriz_selecciones[][]) {
     
-        int Matriz_selecciones[][] = {{0,1,2,3,4,5,6,7,8,9,10},
+     /*   int Matriz_selecciones[][] = {{0,1,2,3,4,5,6,7,8,9,10},
                                       {1,0,0,1,0,0,0,1,0,0,1},
                                       {2,0,0,1,0,0,0,0,1,0,0},
                                       {3,1,1,0,0,0,0,0,0,1,1},
@@ -23,7 +23,7 @@ public class Ingenua {
                                       {7,1,0,0,1,0,0,0,0,0,0},
                                       {8,0,1,0,1,0,0,0,0,0,1},
                                       {9,0,0,1,0,0,0,0,0,0,1},
-                                      {10,1,0,1,1,1,1,0,1,1,0}};
+                                      {10,1,0,1,1,1,1,0,1,1,0}};*/
         
         int TamañoX = Matriz_selecciones[0].length-1;
         int TamañoY = Matriz_selecciones.length;

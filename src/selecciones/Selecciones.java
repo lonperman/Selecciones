@@ -5,6 +5,8 @@
  */
 package selecciones;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Usuario
@@ -16,13 +18,24 @@ public class Selecciones {
      */
     
 
+    static Scanner s = new Scanner(System.in);
     
     public static void main(String[] args) {
      
         // TODO code application logic here
-       Ingenua I = new Ingenua();
-       I.ingenua();
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("Ingrese la ruta del archivo: \n");
+        
+        String ruta = s.next();
+        
+        Lector lec = new Lector(ruta);
+        Reductor_Matriz rec = new Reductor_Matriz();
+        int [][] Matriz = lec.generarMatriz();
+        Matriz = rec.Reductor_Matriz(Matriz);
+        
        
+       Ingenua I = new Ingenua();
+       I.ingenua(Matriz);    
    
     }
     
