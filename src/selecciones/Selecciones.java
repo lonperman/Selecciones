@@ -21,7 +21,7 @@ public class Selecciones {
     static Scanner s = new Scanner(System.in);
     
     public static void main(String[] args) {
-     
+     /*
         // TODO code application logic here
         System.out.println("----------------------------------------------------------------");
         System.out.println("Ingrese la ruta del archivo: \n");
@@ -32,10 +32,12 @@ public class Selecciones {
         Reductor_Matriz rec = new Reductor_Matriz();
         int [][] Matriz = lec.generarMatriz();
         Matriz = rec.Reductor_Matriz(Matriz);
-        
+        */
        
-       Ingenua I = new Ingenua();
-       I.ingenua(Matriz);    
+       /*Ingenua I = new Ingenua();
+       I.ingenua(Matriz);   */
+        Dinamica D = new Dinamica();
+        D.Dinamica();
    
     }
     

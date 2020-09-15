@@ -41,6 +41,8 @@ public class Ingenua {
         }
         //Instancio una funcion auxiliar que me ayudara a hallar los enemigos de las selecciones
         Segmentador s = new Segmentador();
+        Comparador c = new Comparador();
+                
         //Envio los datos y esta me devolcera una matriz asignada en la Matriz_NR
         //Donde solo estaran los enemigos de las naciones
         Matriz_NR = s.selecciones(Matriz_selecciones);
@@ -85,7 +87,7 @@ public class Ingenua {
                   //Se pregunta si el elemento es diferente de su seleccion  
                    if(Selecciones_Salida[i][0] != Elemento){
                        
-                      Respuesta = Comparador(Selecciones_Salida[i][0], Matriz_NR, Elemento);
+                      Respuesta = c.Comparador(Selecciones_Salida[i][0], Matriz_NR, Elemento);
                  //Si el elemento no esta dentro de los enemigos de la seleccion la respuesta sera un 1
                        //System.out.println("Respuesta: " + Respuesta);
                    if(Respuesta == 1 && Enemigo == false){
@@ -171,37 +173,6 @@ public class Ingenua {
       
      
 }
-    public int Comparador(int Seleccion,int [][] Matriz,int Elemento){
-        int Respuesta = 0;
-        int Posicion = 0;
-        
-              //  System.out.println("Segundo Comparador");
-        //El for recorre toda la matriz hasta encontrar la seleccion
-                    for(int e =0 ;e<Matriz.length;e++){
-                        //Si encuentra la seleccion se procede a verificar sus enemigos
-                        if(Matriz[e][Posicion] == Seleccion){
-                            //El for verifica a sus enemigos de forma horizontal
-                            for(int i= 1; i<Matriz[0].length;i++){
-                                //se verifica si el elemento esta dentro de los enemigos de la seleccion 
-                                if(Matriz[e][i] == Elemento){
-                                    //Si se encuentra su respuesta sera 2
-                                    Respuesta = 2;
-                                //Sino se encuentra la respuesta sera 1    
-                                } else if(Respuesta != 2) {
-                                    Respuesta = 1;
-                                }
-                            }
-                        } 
-                    }
-                
-            
-            
-        return Respuesta;
-    }
-
-
-
-
     
 }
 
