@@ -41,13 +41,13 @@ public class Dinamica {
            
         }
          
-          for(int i = 0;i < Matriz_Pesos.length;i++){
+        /*  for(int i = 0;i < Matriz_Pesos.length;i++){
             //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
             for(int k = 0; k < Matriz_Pesos[0].length;k++){
                  System.out.print(Matriz_Pesos[i][k]+" ");            
             }
            System.out.println();
-        } 
+        } */
          
          
         Combinador(Matriz_Enemigos, Matriz_Pesos, Matriz_Salida);
@@ -88,12 +88,18 @@ public class Dinamica {
              for(int i=0;i<Combinaciones[0].length;i++){
                  //Pregunta si la las posiciones ya tiene elementos asignados
                  if(Combinaciones[Posicion_2][i] != 0){
-                    System.out.println("Seleccion: " + Combinaciones[Posicion_2][i] + " Elemento: " + Elemento); 
+                   // System.out.println("Seleccion: " + Combinaciones[Posicion_2][i] + " Elemento: " + Elemento); 
                     //Usamos la funcion Comparador para verificar si el elemento no es enemiga de las otras selecciones ya asignadas
-                    Respuesta = c.Comparador(Combinaciones[Posicion_2][i], Matriz_E, Elemento);
-                    System.out.println("Respuesta: " + Respuesta);
+                    //Para no comparar la seleccion entre ella misma, verificamos que no sean iguales
+                    
+                        Respuesta = c.Comparador(Combinaciones[Posicion_2][i], Matriz_E, Elemento);
+                       //System.out.println("Respuesta: " + Respuesta);
+                    
+                    
                     //Si la respuesta es 1, sera por que no es enemiga y se procedera a buscar una posicion para asignarlo
                     if(Respuesta == 1 && Enemigo == false){
+                        //Verificamos si la seleccion escogida no es igual al elemento
+                        if(Combinaciones[Posicion_2][i] != Elemento){
                         //Recorre la matriz para hallar una posicion con 0
                         for(int k=0;k<Combinaciones[0].length;k++){
                          //Al encontrar la posicion en 0 lo  asignamos el elemento   
@@ -111,6 +117,10 @@ public class Dinamica {
                             
                          }
                        }
+                    //Si el elemento es igual a la seleccion, cambios la varible a true, para indicar que esta asignada    
+                    }else{
+                            Asignado = true;
+                        }
                     }
                     //Si el elemento es enemigo de las selecciones de la combinacion
                     if(Respuesta == 2 && Enemigo == false){
@@ -131,19 +141,55 @@ public class Dinamica {
                             }
                           }
                         }
-                        
+                        //Para evitar hacer combinaciones con "id" repetidos en la tabla combinaciones hacemos
+                        //Las verificaciones que eviten la repeticion en el arreglo de no asignados
+                        //Tanto que no se repitan en el arreglo,como el de agregar elementos a los que ya se le asignos valores en "Datos"
+                        boolean esta_elemento = false;
+                        //Recorremos el arreglo de no asignados
+                        for(int s=0;s<No_Asignadas.length;s++){
+                            //Verificamos si el elemento ya fue asignado antes
+                            //Si ya esta dentro del arreglo la variable "esta elemento" pasa true
+                            if(No_Asignadas[s]== Elemento){
+                               esta_elemento = true;
+                            }
+                            //Si el ellemento no esta asignado,ya que la variable no esta en true
+                            //Lo asignamos al arreglo
+                            if(No_Asignadas[s] == 0 && esta_elemento == false){
+                                //Recorremos la matriz datos, para saber si el elemento no a sido ya asignado junto a sus valores
+                                for(int n=0;n<Datos.length;n++){
+                                    //Si ya fue asignado, la variable pasa a true
+                                    if(Datos[n][0] == Elemento){
+                                        esta_elemento = true;
+                                    }
+                                    //Sino a sido asignado, se procedera a agregarlo en el arreglo
+                                    if(esta_elemento != true){
+                                         No_Asignadas[s] = Elemento; //Agregando elemento en una posicion con valor 0
+                                         esta_elemento = true;//Cambiamos para true, para indicar que ya fue asignado
+                                    }
+                                }
+                            }
+                        }
                          
-                        Enemigo = true;
-                        Posicion_3 = Contador2;
-                        No_Asignadas[Posicion_3] = Elemento;
-                        Contador2= Contador2 + 1;
+                        Enemigo = true;//Al verificar un elemento, en la funcion auxiliar y si la respuesta es "2" se indica true
+                                       //Ya que indica enemigo de alguna de la combinacion
+                        esta_elemento = false;//Se reinicia la variable, en caso que se halla cambiado a true
+                        Contador2= Contador2 + 1; //Saber cuanto elementos hay en el arreglo no asignados
                     }
                  }
+                 //Si la posicion en la combinacion es cero
+                 //Y para evitar que se sobreescriba esta la varible Asignado
                  if(Combinaciones[Posicion_2][i] == 0 && Asignado == false){
+                     //Si el al iniciar la asignacion, el elemento no a sido, catalogado como enemigo de otra seleccion
                      if(Enemigo != true){
+                         //Se procede a asignarlo en la posicion con valor 0
                          Combinaciones[Posicion_2][i] = Elemento;
+                         //Si es el primer elemento de las combinaciones
+                         //Se asignara como el elemento que identificara a la combinacion, en la matriz datos
                              if(Datos[Posicion_4][0] == 0){
+                                 //Asignamos el elemento a la tabla datos
                                  Datos[Posicion_4][0] = Elemento;
+                                 //Recorremos la matriz pesos, a donde este el peso total que tiene la seleccion a asignar
+                                 //Al encontrarlo procedemos a sumar el elemento, a la campo de total de selecciones
                                 for(int d=0;d<Matriz_P.length;d++){
                                   if(Matriz_P[d][0] == Elemento){
                                     Datos[Posicion_4][1] =  Datos[Posicion_4][1] + 1;
@@ -151,29 +197,53 @@ public class Dinamica {
                                   }
                                 }
                                  
-                             }
-                         
+                             }  
                      }
                      
-                     Asignado = true;
+                     Asignado = true;//Para evitar repeteciones o sobreinscripciones en la matriz combinaciones
                  }
              }
-             Contador = 0;
+             Contador = 0;//Para volver a reiniciar la varible
              
          } else {
-             Contador = 0;
+             Contador = 0;//En caso que la seleccion halla sido asignada a una villa, se reinicia la variable, para verificar otra seleccion
          }
          
-            System.out.println("Contador 2: " + Contador2);
+           // System.out.println("Contador 2: " + Contador2);
             
-            for(int i = 0;i<No_Asignadas.length;i++){
+           /* for(int i = 0;i<No_Asignadas.length;i++){
                 System.out.println("No Asignadas: " + No_Asignadas[i]);
-            }
+            }*/
         /* if(Contador2 > 0){
              
              Combinaciones[]
          }*/
-         
+          //  System.out.println("Valor Posicion 1: " + Posicion_1);
+         //Verificamos si La variable Posicion 1, llego hasta el limite total de selecciones
+         if(Posicion_1 == Matriz_S.length-1){
+          //   System.out.println("Entrando al if" + "Posicion 3: " +Posicion_3);
+             //Verificamos si la varible no excede el limite del arreglo
+             if(Posicion_3 < No_Asignadas.length){
+                 //Verificamos si en la poscion hay un elemento diferente a 0
+                 if(No_Asignadas[Posicion_3] != 0){
+                    Posicion_2 = Posicion_2 + 1; //Combinaciones en vertical
+                    Posicion_4 = Posicion_4 + 1;//Datos  
+                    Combinaciones[Posicion_2][0] = No_Asignadas[Posicion_3];    
+                    Datos[Posicion_4][0] = No_Asignadas[Posicion_3];
+
+                    for(int d=0;d<Matriz_P.length;d++){
+                                 //Encontramos el elemento  
+                                 if(Matriz_P[d][0] == No_Asignadas[Posicion_3]){
+                                    Datos[Posicion_4][1] =  Datos[Posicion_4][1] + 1; 
+                                    Datos[Posicion_4][2] =  Datos[Posicion_4][2] + Matriz_P[d][1]; 
+                                 }
+                            }
+                    //esta_datos = false;
+                    Posicion_1 = 0;
+                    Posicion_3 = Posicion_3 + 1;
+                 }
+             }
+         }    
          Posicion_1 = Posicion_1 + 1;
          Asignado = false;
          Enemigo = false;
@@ -181,6 +251,8 @@ public class Dinamica {
          if(Posicion_1 == Matriz_S.length){
              Solucion = true;
          }
+         
+         
          
         }
         
@@ -192,6 +264,9 @@ public class Dinamica {
            System.out.println();
         }
          
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println();
+        
         for(int i = 0;i < Datos.length;i++){
             //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
             for(int k = 0; k < Datos[0].length;k++){
