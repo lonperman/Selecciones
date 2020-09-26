@@ -36,9 +36,10 @@ public class Selecciones {
        
        /*Ingenua I = new Ingenua();
        I.ingenua(Matriz);   */
-        Dinamica D = new Dinamica();
-        D.Dinamica();
-   
+      //  Dinamica D = new Dinamica();
+      //  D.Dinamica();
+        Voraz V = new Voraz();
+        V.Voraz();
     }
     
 }

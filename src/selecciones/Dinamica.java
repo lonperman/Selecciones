@@ -11,9 +11,9 @@ package selecciones;
  */
 public class Dinamica {
     
-    public void Dinamica(){
+    public void Dinamica(int [][] Matriz){
         
-        int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
+        /*int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
                          {1,0,0,1,0,0,0,1,0,0,1},
                          {2,0,0,1,0,0,0,0,1,0,0},
                          {3,1,1,0,0,0,0,0,0,1,1},
@@ -23,7 +23,7 @@ public class Dinamica {
                          {7,1,0,0,1,0,0,0,0,0,0},
                          {8,0,1,0,1,0,0,0,0,0,1},
                          {9,0,0,1,0,0,0,0,0,0,1},
-                         {10,1,0,1,1,1,1,0,1,1,0}};
+                         {10,1,0,1,1,1,1,0,1,1,0}};*/
         
         int y = Matriz.length, x = Matriz[0].length;
         int[][] Matriz_Enemigos = new int[y-1][x-1];
@@ -58,7 +58,7 @@ public class Dinamica {
         int TamañoX = Matriz_S[0].length; //Tamaño para crear las matrices de forma horizontal o las columnas
         int TamañoY = Matriz_S.length; //Tamaño para crear las matrices de forma vertical o filas
         int Posicion_1 = 1,Posicion_2 =0,Posicion_3 = 0,Posicion_4 = 0, //Posicion 1: Elemento; Posicion 2: Combinaciones;Posicion 3: No asignados
-            Contador = 0,Contador2 = 0,Elemento = 0,Respuesta = 0; //Contador: Para saber si la seleccion fue asignada;Contador 2:No asignadas
+            Contador = 0,Contador2 = Matriz_S.length - 1,Elemento = 0,Respuesta = 0; //Contador: Para saber si la seleccion fue asignada;Contador 2:No asignadas
             //Posicion 4:Datos ;Elemento: Seleccion para asignar; Respuesta: Verificacion de si es amiga o enemiga
         boolean Solucion = false,Enemigo = false,Asignado = false; //Solucion: Para cerrar el ciclo while; Enemigo: Para saber si el elemnto
         //Es enemiga de otra seleccion que no sea la primera; Asignado: Para evitar la asignacion continua en el for
@@ -173,7 +173,7 @@ public class Dinamica {
                         Enemigo = true;//Al verificar un elemento, en la funcion auxiliar y si la respuesta es "2" se indica true
                                        //Ya que indica enemigo de alguna de la combinacion
                         esta_elemento = false;//Se reinicia la variable, en caso que se halla cambiado a true
-                        Contador2= Contador2 + 1; //Saber cuanto elementos hay en el arreglo no asignados
+                       
                     }
                  }
                  //Si la posicion en la combinacion es cero
@@ -207,9 +207,10 @@ public class Dinamica {
              
          } else {
              Contador = 0;//En caso que la seleccion halla sido asignada a una villa, se reinicia la variable, para verificar otra seleccion
+             Contador2 = Contador2 - 1;
          }
          
-           // System.out.println("Contador 2: " + Contador2);
+           System.out.println("Contador 2: " + Contador2);
             
            /* for(int i = 0;i<No_Asignadas.length;i++){
                 System.out.println("No Asignadas: " + No_Asignadas[i]);
@@ -234,22 +235,39 @@ public class Dinamica {
                     for(int d=0;d<Matriz_P.length;d++){
                                  //Encontramos el elemento  
                                  if(Matriz_P[d][0] == No_Asignadas[Posicion_3]){
-                                    Datos[Posicion_4][1] =  Datos[Posicion_4][1] + 1; 
-                                    Datos[Posicion_4][2] =  Datos[Posicion_4][2] + Matriz_P[d][1]; 
+                                    Datos[Posicion_4][1] =  Datos[Posicion_4][1] + 1; //Sumamos la seleccion en la tabla datos
+                                    Datos[Posicion_4][2] =  Datos[Posicion_4][2] + Matriz_P[d][1]; //Sumamos el peso en la tabla datos
                                  }
                             }
-                    //esta_datos = false;
+                   
                     Posicion_1 = 0;
                     Posicion_3 = Posicion_3 + 1;
-                 }
-             }
+                  }
+                }
          }    
-         Posicion_1 = Posicion_1 + 1;
-         Asignado = false;
-         Enemigo = false;
+         Posicion_1 = Posicion_1 + 1;//Aummenta la variable para recorrer todos los elementos de la matriz de salida;
+         Asignado = false;//Se reinicia la variable a su estado normal
+         Enemigo = false;//Se reinicia la variable a su estado normal
          
+        if(Posicion_1 == Matriz_S.length){
+                 
+            No_Asignadas = Seleccionador(Datos, Combinaciones);
+            
+                Posicion_3 = 0;
+                for(int k=0;k<No_Asignadas.length;k++){
+                    System.out.println("Seleccion " + No_Asignadas[k]);
+                    if(No_Asignadas[k] != 0){
+                        Posicion_3 = Posicion_3 + 1;  
+                    }
+                }
+                Contador2 = Contador2 - Posicion_3;
+                System.out.println("Posicion 3 " + Posicion_3);
+                System.out.println("Contador 4: " + Contador2);
+            }
+         
+         //Si no mas combinaciones por hacer y la varible llego a su estado final, se cierra el while
          if(Posicion_1 == Matriz_S.length){
-             Solucion = true;
+             Solucion = true;//Se cambia a true para poder cerrar el while
          }
          
          
@@ -278,6 +296,46 @@ public class Dinamica {
         
         
         return Matriz_E;
+    }
+    
+    public int[] Seleccionador(int[][]Datos,int[][]Combinaciones){
+        int Identificador = Datos[0][0];
+        int T_Selecciones = Datos[0][1];
+        int T_Peso = Datos[0][2];
+        int Tamaño = Combinaciones[0].length;
+        int[] Combinacion = new int[Tamaño];
+        
+        System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
+        
+        for(int i=0;i<Datos.length;i++){
+            if(Datos[i][1] > T_Selecciones){
+                if(Datos[i][2] > T_Peso){
+                    Identificador = Datos[i][0];
+                }
+            }
+            if(Datos[i][1] == T_Selecciones){
+                if(Datos[i][2] > T_Peso){
+                    Identificador = Datos[i][0];
+                }
+            }
+            if(Datos[i][1] > T_Selecciones){
+                if(Datos[i][2] == T_Peso){
+                    Identificador = Datos[i][0];
+                }
+            }
+        }
+        
+         System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
+        
+        for(int n=0;n<Combinaciones.length;n++){
+            if(Combinaciones[n][0] == Identificador){
+                for(int e=0;e<Combinaciones[0].length;e++){
+                    Combinacion[e] =  Combinaciones[n][e];
+                }
+            }
+        }
+        
+        return Combinacion;
     }
     
 }
