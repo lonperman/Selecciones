@@ -10,8 +10,8 @@ package selecciones;
  * @author Cristian Camilo
  */
 public class Voraz {
-    public void Voraz(){
-        int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
+    public void Voraz(int [][]Matriz){
+      /*int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
                          {1,0,0,1,0,0,0,1,0,0,1},
                          {2,0,0,1,0,0,0,0,1,0,0},
                          {3,1,1,0,0,0,0,0,0,1,1},
@@ -21,7 +21,7 @@ public class Voraz {
                          {7,1,0,0,1,0,0,0,0,0,0},
                          {8,0,1,0,1,0,0,0,0,0,1},
                          {9,0,0,1,0,0,0,0,0,0,1},
-                         {10,1,0,1,1,1,1,0,1,1,0}};
+                         {10,1,0,1,1,1,1,0,1,1,0}};*/
         
         int Tamaño= Matriz.length;
         int Matriz_Peso[][]=new int[Tamaño][2];
@@ -121,9 +121,9 @@ public class Voraz {
          if(Contador==TamañoX-1){
             for(int i=1;i<Matriz_S.length;i++){
                 if(Matriz_S[i][Villa]==1){
-                   System.out.println("Seleccion " + Matriz_S[i][0] + " Elemento "+ Elemento); 
-                   Respuesta = c1.Comparador(Matriz_S[i][0], Matriz_Enemigos, Elemento);
-                    System.out.println("Valor Respuesta "+Respuesta);
+                  // System.out.println("Seleccion " + Matriz_S[i][0] + " Elemento "+ Elemento); 
+                  Respuesta = c1.Comparador(Matriz_S[i][0], Matriz_Enemigos, Elemento);
+                  //  System.out.println("Valor Respuesta "+Respuesta);
                    
                     if(Respuesta == 1 && Enemigo == false){
                         for(int p=0;p<Matriz_S.length;p++){

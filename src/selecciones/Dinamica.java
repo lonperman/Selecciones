@@ -11,9 +11,9 @@ package selecciones;
  */
 public class Dinamica {
     
-    public void Dinamica(int [][] Matriz){
+    public void Dinamica(int[][]Matriz){
         
-        /*int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
+       /* int Matriz[][] = {{0,1,2,3,4,5,6,7,8,9,10},
                          {1,0,0,1,0,0,0,1,0,0,1},
                          {2,0,0,1,0,0,0,0,1,0,0},
                          {3,1,1,0,0,0,0,0,0,1,1},
@@ -33,8 +33,8 @@ public class Dinamica {
         Segmentador s = new Segmentador();
         Contador_Peso c = new Contador_Peso();
         
-        Matriz_Enemigos = s.selecciones(Matriz);
-        Matriz_Pesos = c.Contador_Peso(Matriz_Enemigos);
+        Matriz_Enemigos = s.selecciones(Matriz);//Enemigos de la matriz de entrada
+        Matriz_Pesos = c.Contador_Peso(Matriz_Enemigos);//Mando tabla los enemigos de cada seleccion
         
          for(int i = 1;i<y; i++){
              Matriz_Salida[i][0] = Matriz[i][0];
@@ -50,7 +50,18 @@ public class Dinamica {
         } */
          
          
-        Combinador(Matriz_Enemigos, Matriz_Pesos, Matriz_Salida);
+        Matriz_Salida = Combinador(Matriz_Enemigos, Matriz_Pesos, Matriz_Salida);
+        
+         for(int i = 0;i < Matriz_Salida.length;i++){
+            //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
+            for(int k = 0; k < Matriz_Salida[0].length;k++){
+                 System.out.print(Matriz_Salida[i][k]+" ");            
+            }
+           System.out.println();
+        }
+         
+        
+        
     }
     
     public int[][]Combinador(int[][]Matriz_E,int[][]Matriz_P,int[][]Matriz_S){
@@ -58,29 +69,45 @@ public class Dinamica {
         int TamañoX = Matriz_S[0].length; //Tamaño para crear las matrices de forma horizontal o las columnas
         int TamañoY = Matriz_S.length; //Tamaño para crear las matrices de forma vertical o filas
         int Posicion_1 = 1,Posicion_2 =0,Posicion_3 = 0,Posicion_4 = 0, //Posicion 1: Elemento; Posicion 2: Combinaciones;Posicion 3: No asignados
-            Contador = 0,Contador2 = Matriz_S.length - 1,Elemento = 0,Respuesta = 0; //Contador: Para saber si la seleccion fue asignada;Contador 2:No asignadas
+            Contador = 0,Contador2 = Matriz_S.length - 1,Elemento = 0,Respuesta = 0,Villa=1; //Contador: Para saber si la seleccion fue asignada;Contador 2:No asignadas
             //Posicion 4:Datos ;Elemento: Seleccion para asignar; Respuesta: Verificacion de si es amiga o enemiga
-        boolean Solucion = false,Enemigo = false,Asignado = false; //Solucion: Para cerrar el ciclo while; Enemigo: Para saber si el elemnto
+        boolean Solucion = false,Enemigo = false,Asignado = false,P_Villa = false; //Solucion: Para cerrar el ciclo while; Enemigo: Para saber si el elemnto
         //Es enemiga de otra seleccion que no sea la primera; Asignado: Para evitar la asignacion continua en el for
         int[]No_Asignadas = new int[TamañoX]; //Selecciones no asignadas por ser enemigas
         int[][]Combinaciones = new int[TamañoY][TamañoX]; //Matriz donde se hacen combinciones con todas las selecciones enemigas
         int[][] Datos = new int[TamañoY][3]; //Matriz usada para guardar los datos sobre peso y cantidad de selecciones en las combinaciones
         Comparador c = new Comparador();
         
-        
-        while(!Solucion){
-            
-            if(Posicion_1 <= TamañoY){
-            Elemento = Matriz_S[Posicion_1][0]; 
-         }
-        
-         for(int p = 1;p<TamañoX;p++){
-                //verifica si en la casilla existe un digito 0
-                if(Matriz_S[Posicion_1][p] == 0){
-                    //Por cada 0 el contador ira sumando
+        while(!P_Villa){
+            for(int i=1;i<Matriz_S.length;i++){
+                if(Matriz_S[i][Villa] == 0){
                     Contador++;
                 }
             }
+             
+            if(Contador == Matriz_S.length-1){
+                P_Villa = true;
+            }
+            if(Contador < Matriz_S.length-1){
+                Villa = Villa + 1;
+            }
+                
+            Contador = 0;
+        }
+        while(!Solucion){
+              
+        Matriz_S[0][Villa] = Villa;    
+        if(Posicion_1 <= TamañoY){
+          Elemento = Matriz_S[Posicion_1][0]; 
+        }
+        
+        for(int p = 1;p<TamañoX;p++){
+            //verifica si en la casilla existe un digito 0
+            if(Matriz_S[Posicion_1][p] == 0){
+                //Por cada 0 el contador ira sumando
+                Contador++;
+            }
+        }
             
          
          if(Contador == TamañoX-1){
@@ -180,7 +207,7 @@ public class Dinamica {
                  //Y para evitar que se sobreescriba esta la varible Asignado
                  if(Combinaciones[Posicion_2][i] == 0 && Asignado == false){
                      //Si el al iniciar la asignacion, el elemento no a sido, catalogado como enemigo de otra seleccion
-                     if(Enemigo != true){
+                    if(Enemigo != true){
                          //Se procede a asignarlo en la posicion con valor 0
                          Combinaciones[Posicion_2][i] = Elemento;
                          //Si es el primer elemento de las combinaciones
@@ -210,7 +237,7 @@ public class Dinamica {
              Contador2 = Contador2 - 1;
          }
          
-           System.out.println("Contador 2: " + Contador2);
+           //System.out.println("Contador 2: " + Contador2);
             
            /* for(int i = 0;i<No_Asignadas.length;i++){
                 System.out.println("No Asignadas: " + No_Asignadas[i]);
@@ -227,11 +254,11 @@ public class Dinamica {
              if(Posicion_3 < No_Asignadas.length){
                  //Verificamos si en la poscion hay un elemento diferente a 0
                  if(No_Asignadas[Posicion_3] != 0){
-                    Posicion_2 = Posicion_2 + 1; //Combinaciones en vertical
-                    Posicion_4 = Posicion_4 + 1;//Datos  
+                    Posicion_2 = Posicion_2 + 1; //Combinaciones en vertical - Filas combinacion
+                    Posicion_4 = Posicion_4 + 1;//Datos  - Filas datos
                     Combinaciones[Posicion_2][0] = No_Asignadas[Posicion_3];    
                     Datos[Posicion_4][0] = No_Asignadas[Posicion_3];
-
+                    //Asignar datos del elemento asignado a combinaciones
                     for(int d=0;d<Matriz_P.length;d++){
                                  //Encontramos el elemento  
                                  if(Matriz_P[d][0] == No_Asignadas[Posicion_3]){
@@ -240,8 +267,8 @@ public class Dinamica {
                                  }
                             }
                    
-                    Posicion_1 = 0;
-                    Posicion_3 = Posicion_3 + 1;
+                    Posicion_1 = 0;//Reinico la variable de candidatos
+                    Posicion_3 = Posicion_3 + 1;//Varible de no asignados
                   }
                 }
          }    
@@ -249,20 +276,33 @@ public class Dinamica {
          Asignado = false;//Se reinicia la variable a su estado normal
          Enemigo = false;//Se reinicia la variable a su estado normal
          
-        if(Posicion_1 == Matriz_S.length){
-                 
-            No_Asignadas = Seleccionador(Datos, Combinaciones);
+         
+        if(Posicion_1 == Matriz_S.length){      
+            No_Asignadas = Seleccionador(Datos, Combinaciones); 
+            Posicion_3 = 0;
             
-                Posicion_3 = 0;
-                for(int k=0;k<No_Asignadas.length;k++){
-                    System.out.println("Seleccion " + No_Asignadas[k]);
-                    if(No_Asignadas[k] != 0){
-                        Posicion_3 = Posicion_3 + 1;  
+            for(int i=0;i<No_Asignadas.length;i++){
+                for(int p=1;p<Matriz_S.length;p++){
+                    if(No_Asignadas[i] == Matriz_S[p][0]){
+                        Matriz_S[p][Villa] = 1;
                     }
                 }
-                Contador2 = Contador2 - Posicion_3;
-                System.out.println("Posicion 3 " + Posicion_3);
-                System.out.println("Contador 4: " + Contador2);
+            }
+            
+            /*for(int k=0;k<No_Asignadas.length;k++){
+                System.out.println("Seleccion " + No_Asignadas[k]);
+                if(No_Asignadas[k] != 0){
+                    Posicion_3 = Posicion_3 + 1;  
+                    }
+                }*/
+               // Contador2 = Contador2 - Posicion_3;
+            if(Contador2 != 0){
+                Combinador(Matriz_E, Matriz_P, Matriz_S);
+                Contador2 = Matriz_S.length-1;
+            }
+            
+              // System.out.println("Posicion 3 " + Posicion_3);
+              // System.out.println("Contador 4: " + Contador2);
             }
          
          //Si no mas combinaciones por hacer y la varible llego a su estado final, se cierra el while
@@ -274,7 +314,7 @@ public class Dinamica {
          
         }
         
-         for(int i = 0;i < Combinaciones.length;i++){
+       /*  for(int i = 0;i < Combinaciones.length;i++){
             //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
             for(int k = 0; k < Combinaciones[0].length;k++){
                  System.out.print(Combinaciones[i][k]+" ");            
@@ -291,11 +331,19 @@ public class Dinamica {
                  System.out.print(Datos[i][k]+" ");            
             }
            System.out.println();
-        } 
+        } */
+        
+       /* for(int i = 0;i < Matriz_S.length;i++){
+            //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
+            for(int k = 0; k < Matriz_S[0].length;k++){
+                 System.out.print(Matriz_S[i][k]+" ");            
+            }
+           System.out.println();
+        }*/
         
         
         
-        return Matriz_E;
+        return Matriz_S;
     }
     
     public int[] Seleccionador(int[][]Datos,int[][]Combinaciones){
@@ -305,7 +353,7 @@ public class Dinamica {
         int Tamaño = Combinaciones[0].length;
         int[] Combinacion = new int[Tamaño];
         
-        System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
+       // System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
         
         for(int i=0;i<Datos.length;i++){
             if(Datos[i][1] > T_Selecciones){
@@ -325,7 +373,7 @@ public class Dinamica {
             }
         }
         
-         System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
+       //  System.out.println("Identificador " + Identificador + " Cantida Selecciones " + T_Selecciones + " Total Peso " + T_Peso);
         
         for(int n=0;n<Combinaciones.length;n++){
             if(Combinaciones[n][0] == Identificador){

@@ -42,6 +42,7 @@ public class Ingenua {
         //Instancio una funcion auxiliar que me ayudara a hallar los enemigos de las selecciones
         Segmentador s = new Segmentador();
         Comparador c = new Comparador();
+        Selecciones e = new Selecciones();
                 
         //Envio los datos y esta me devolcera una matriz asignada en la Matriz_NR
         //Donde solo estaran los enemigos de las naciones
@@ -138,7 +139,7 @@ public class Ingenua {
                 Posicion_2 = 1;
                 Elemento = 0;
                 Contador2 = Selecciones_Salida.length - 1;
-                System.out.println("Posicion 1: " + Posicion_1);
+               // System.out.println("Posicion 1: " + Posicion_1);
       //Si la posicion sobre pasa el tamaño de la matriz se finalizara el bucle         
             }if(Posicion_1 >= TamañoX){
                 Solucion = true;
@@ -161,8 +162,10 @@ public class Ingenua {
            System.out.println();
         }
         
+   /*     
         System.out.println("--------------------------------------------------------------------");
         System.out.println();
+    
          for(int i = 0;i < Matriz_NR.length;i++){
             //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
             for(int k = 0; k < Matriz_NR[0].length;k++){
@@ -170,7 +173,7 @@ public class Ingenua {
             }
            System.out.println();
         }
-      
+   ¨*/  
      
 }
     

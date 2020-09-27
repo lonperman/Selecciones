@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author Usuario
  */
 public class Lector {
-    int num_vert = 20;
+    int num_vert = 30;
     int[][] matriz = new int[num_vert][num_vert];
     String Ruta_Matriz = " ";
     
