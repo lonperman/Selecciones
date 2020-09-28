@@ -15,45 +15,43 @@ import java.io.IOException;
  * @author Usuario
  */
 public class Lector {
+
     int num_vert = 30;
     int[][] matriz = new int[num_vert][num_vert];
     String Ruta_Matriz = " ";
-    
-    
-    public Lector(String Ruta_Matriz){
+
+    public Lector(String Ruta_Matriz) {
         this.Ruta_Matriz = Ruta_Matriz;
     }
-    
 
-    
-    public int[][] generarMatriz(){
+    public int[][] generarMatriz() {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
-        
-        try{
-            
+
+        try {
+
             archivo = new File(this.Ruta_Matriz);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-            
+
             String temp = "";
             String linea;
-            
+
             int ln = 0;
-            while((linea = br.readLine()) != null){
+            while ((linea = br.readLine()) != null) {
                 temp = temp + linea;
                 String elementos[] = linea.split(" ");
-                for(int j=0; j<elementos.length;j++){
+                for (int j = 0; j < elementos.length; j++) {
                     matriz[ln][j] = Integer.parseInt(elementos[j]);
                 }
                 ln++;
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return matriz; 
-        
+        return matriz;
+
     }
-    
+
 }

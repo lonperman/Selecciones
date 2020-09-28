@@ -16,26 +16,23 @@ public class Selecciones {
     /**
      * @param args the command line arguments
      */
-    
-
     static Scanner s = new Scanner(System.in);
-    
+
     public static void main(String[] args) {
-     
+
         Ingenua I = new Ingenua();
         Dinamica D = new Dinamica();
         Voraz V = new Voraz();
-        
-        
+
         // TODO code application logic here
         System.out.println("----------------------------------------------------------------");
         System.out.println("Ingrese la ruta del archivo: \n");
-        
+
         String ruta = s.next();
-        
+
         Lector lec = new Lector(ruta);
         Reductor_Matriz rec = new Reductor_Matriz();
-        int [][] Matriz = lec.generarMatriz();
+        int[][] Matriz = lec.generarMatriz();
         Matriz = rec.Reductor_Matriz(Matriz);
         int Opcion = 0;
         boolean Salida = false;
@@ -45,25 +42,24 @@ public class Selecciones {
         System.out.println("Solucion Dinamica - Opcion 3");
         System.out.println("\n");
         Opcion = s.nextInt();
-        
-     
-       switch(Opcion){
-           case 1:
-                I.ingenua(Matriz);  
+
+        switch (Opcion) {
+            case 1:
+                I.ingenua(Matriz);
                 Opcion = 0;
-               break;
-           case 2:
+                break;
+            case 2:
                 V.Voraz(Matriz);
                 Opcion = 0;
-               break;
-           case 3:
-                 D.Dinamica(Matriz);
+                break;
+            case 3:
+                D.Dinamica(Matriz);
                 Opcion = 0;
-               break;
-           case 4:
-               Salida = true;
-               break;
-        } 
+                break;
+            case 4:
+                Salida = true;
+                break;
+        }
     }
-    
+
 }

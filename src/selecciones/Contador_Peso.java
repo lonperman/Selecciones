@@ -10,16 +10,16 @@ package selecciones;
  * @author Usuario
  */
 public class Contador_Peso {
-    
-    public int [][] Contador_Peso(int[][] Matriz){
-        
+
+    public int[][] Contador_Peso(int[][] Matriz) {
+
         int y = Matriz.length;
         int Contador = 0;
         int[][] Matriz_salida = new int[y][2];
         //se hace un recorrido de la matriz
-        for(int i=0;i<Matriz.length;i++){
-            for(int p=1;p<Matriz[0].length;p++){
-                if(Matriz[i][p] != 0){
+        for (int i = 0; i < Matriz.length; i++) {
+            for (int p = 1; p < Matriz[0].length; p++) {
+                if (Matriz[i][p] != 0) {
                     Contador++;
                 }
             }
@@ -27,9 +27,8 @@ public class Contador_Peso {
             Matriz_salida[i][1] = Contador;//Se asigna el peso de la seleccion
             Contador = 0;//Se reinicia el contador
         }
-        
-       
+
         return Matriz_salida;
     }
-    
+
 }
