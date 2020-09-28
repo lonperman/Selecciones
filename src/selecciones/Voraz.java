@@ -77,6 +77,8 @@ public class Voraz {
         }*/
     while(!Solucion){  
         
+        Matriz_S[0][Villa] = Villa;
+        
         for (int i=1; i< Matriz_Peso.length;i++){
             if (Matriz_Peso[i][1]>Segunda_variable && Candidato_Asignado == false){
                 Primer_variable=Matriz_Peso[i][0];
@@ -171,10 +173,9 @@ public class Voraz {
        
         
         
-        if(Villa < TamañoX-1 && Posicion_1 == TamañoY-1){
+        if(Pendientes > 0 && Elemento == TamañoY-1){
          //   System.out.println("Entrando al if");
             Villa = Villa + 1;
-            Matriz_S[0][Villa] = Villa;
             Candidato_Asignado = false;
             Posicion_1 = 1;
             Primer_variable = 0;
