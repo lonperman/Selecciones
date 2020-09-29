@@ -279,16 +279,6 @@ public class Dinamica {
 
         }
         
-       /*  for (int i = 0; i <Datos.length; i++) {
-            //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
-            for (int k = 0; k < Datos[0].length; k++) {
-
-                System.out.print(Datos[i][k] + " ");
-            }
-            System.out.println();
-
-        }*/
-
         return Matriz_S;
     }
 

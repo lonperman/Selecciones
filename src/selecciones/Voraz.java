@@ -51,7 +51,7 @@ public class Voraz {
 
         while (!Solucion) {
 
-            Matriz_S[0][Villa] = Villa;
+            
 
             for (int i = 1; i < Matriz_Peso.length; i++) {
                 if (Matriz_Peso[i][1] > Segunda_variable && Candidato_Asignado == false) {
@@ -134,9 +134,12 @@ public class Voraz {
 
             Posicion_1 = Posicion_1 + 1;
             Enemigo = false;
+           
+           
 
             if (Pendientes > 0 && Elemento == TamañoY - 1) {
 
+                Matriz_S[0][Villa] = Villa;
                 Villa = Villa + 1;
                 Candidato_Asignado = false;
                 Posicion_1 = 1;
@@ -152,7 +155,7 @@ public class Voraz {
         }
         for (int i = 0; i < Matriz_S.length; i++) {
             //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
-            for (int k = 0; k <= Villa; k++) {
+            for (int k = 0; k <= Villa-1; k++) {
                 System.out.print(Matriz_S[i][k] + " ");
             }
             System.out.println();
