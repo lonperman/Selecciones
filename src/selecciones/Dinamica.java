@@ -278,6 +278,16 @@ public class Dinamica {
             }
 
         }
+        
+       /*  for (int i = 0; i <Datos.length; i++) {
+            //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
+            for (int k = 0; k < Datos[0].length; k++) {
+
+                System.out.print(Datos[i][k] + " ");
+            }
+            System.out.println();
+
+        }*/
 
         return Matriz_S;
     }
@@ -290,21 +300,16 @@ public class Dinamica {
         int[] Combinacion = new int[Tamaño];
 
         for (int i = 0; i < Datos.length; i++) {
-            if (Datos[i][1] > T_Selecciones) {
-                if (Datos[i][2] > T_Peso) {
+
+            if (Datos[i][2] > T_Peso) {
+                Identificador = Datos[i][0];
+            }
+            if (Datos[i][2] == T_Peso) {
+                if (Datos[i][1] > T_Selecciones) {
                     Identificador = Datos[i][0];
                 }
             }
-            if (Datos[i][1] == T_Selecciones) {
-                if (Datos[i][2] > T_Peso) {
-                    Identificador = Datos[i][0];
-                }
-            }
-            if (Datos[i][1] > T_Selecciones) {
-                if (Datos[i][2] == T_Peso) {
-                    Identificador = Datos[i][0];
-                }
-            }
+
         }
 
         for (int n = 0; n < Combinaciones.length; n++) {
