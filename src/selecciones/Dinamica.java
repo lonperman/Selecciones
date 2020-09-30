@@ -20,15 +20,12 @@ public class Dinamica {
 
         Segmentador s = new Segmentador();
         Contador_Peso c = new Contador_Peso();
-
         Matriz_Enemigos = s.selecciones(Matriz);//Enemigos de la matriz de entrada
         Matriz_Pesos = c.Contador_Peso(Matriz_Enemigos);//Mando tabla los enemigos de cada seleccion
 
         for (int i = 1; i < y; i++) {
             Matriz_Salida[i][0] = Matriz[i][0];
-
-        }
-
+        }     
         Matriz_Salida = Combinador(Matriz_Enemigos, Matriz_Pesos, Matriz_Salida);
 
         for (int p = 1; p < Matriz_Salida[0].length; p++) {
@@ -36,17 +33,12 @@ public class Dinamica {
                 Selecciones_C++;
             }
         }
-
-        for (int i = 0; i < Matriz_Salida.length; i++) {
-            //System.out.println("Seleccion: " + Selecciones_Salida[i][Posicion_1]);
+        for (int i = 0; i < Matriz_Salida.length; i++) {         
             for (int k = 0; k <= Selecciones_C; k++) {
-
                 System.out.print(Matriz_Salida[i][k] + " ");
             }
             System.out.println();
-
         }
-
     }
 
     public int[][] Combinador(int[][] Matriz_E, int[][] Matriz_P, int[][] Matriz_S) {
@@ -65,27 +57,24 @@ public class Dinamica {
 
         while (!P_Villa) {
             for (int i = 1; i < Matriz_S.length; i++) {
+                
                 if (Matriz_S[i][Villa] == 0) {
                     Contador++;
                 }
             }
-
             if (Contador == Matriz_S.length - 1) {
                 P_Villa = true;
             }
             if (Contador < Matriz_S.length - 1) {
                 Villa = Villa + 1;
             }
-
             Contador = 0;
-
         }
-        while (!Solucion) {
+        while (Posicion_1<TamañoY) {
 
             if (Posicion_1 <= TamañoY) {
                 Elemento = Matriz_S[Posicion_1][0];
             }
-
             for (int p = 1; p < TamañoX; p++) {
                 //verifica si en la casilla existe un digito 0
                 if (Matriz_S[Posicion_1][p] == 0) {
@@ -93,19 +82,14 @@ public class Dinamica {
                     Contador++;
                 }
             }
-
             if (Contador == TamañoX - 1) {
                 //For que recorre las matriz de combinaciones
                 for (int i = 0; i < Combinaciones[0].length; i++) {
                     //Pregunta si la las posiciones ya tiene elementos asignados
                     if (Combinaciones[Posicion_2][i] != 0) {
-                   // System.out.println("Seleccion: " + Combinaciones[Posicion_2][i] + " Elemento: " + Elemento); 
                         //Usamos la funcion Comparador para verificar si el elemento no es enemiga de las otras selecciones ya asignadas
                         //Para no comparar la seleccion entre ella misma, verificamos que no sean iguales
-
                         Respuesta = c.Comparador(Combinaciones[Posicion_2][i], Matriz_E, Elemento);
-                       //System.out.println("Respuesta: " + Respuesta);
-
                         //Si la respuesta es 1, sera por que no es enemiga y se procedera a buscar una posicion para asignarlo
                         if (Respuesta == 1 && Enemigo == false) {
                             //Verificamos si la seleccion escogida no es igual al elemento
@@ -124,7 +108,6 @@ public class Dinamica {
                                                 Datos[Posicion_4][2] = Datos[Posicion_4][2] + Matriz_P[d][1];//Sumamos el peso
                                             }
                                         }
-
                                     }
                                 }
                                 //Si el elemento es igual a la seleccion, cambios la varible a true, para indicar que esta asignada    
@@ -179,14 +162,11 @@ public class Dinamica {
                                     }
                                 }
                             }
-
                             Enemigo = true;//Al verificar un elemento, en la funcion auxiliar y si la respuesta es "2" se indica true
                             //Ya que indica enemigo de alguna de la combinacion
                             esta_elemento = false;//Se reinicia la variable, en caso que se halla cambiado a true
-
                         }
                     }
-                 //Si la posicion en la combinacion es cero
                     //Y para evitar que se sobreescriba esta la varible Asignado
                     if (Combinaciones[Posicion_2][i] == 0 && Asignado == false) {
                         //Si el al iniciar la asignacion, el elemento no a sido, catalogado como enemigo de otra seleccion
@@ -206,24 +186,18 @@ public class Dinamica {
                                         Datos[Posicion_4][2] = Datos[Posicion_4][2] + Matriz_P[d][1];
                                     }
                                 }
-
                             }
                         }
-
                         Asignado = true;//Para evitar repeteciones o sobreinscripciones en la matriz combinaciones
                     }
                 }
                 Contador = 0;//Para volver a reiniciar la varible
-
             } else {
                 Contador = 0;//En caso que la seleccion halla sido asignada a una villa, se reinicia la variable, para verificar otra seleccion
-                // Contador2 = Contador2 - 1;
             }
 
-          //  System.out.println("Valor Posicion 1: " + Posicion_1);
             //Verificamos si La variable Posicion 1, llego hasta el limite total de selecciones
             if (Posicion_1 == Matriz_S.length - 1) {
-          //   System.out.println("Entrando al if" + "Posicion 3: " +Posicion_3);
                 //Verificamos si la varible no excede el limite del arreglo
                 if (Posicion_3 < No_Asignadas.length) {
                     //Verificamos si en la poscion hay un elemento diferente a 0
@@ -240,7 +214,6 @@ public class Dinamica {
                                 Datos[Posicion_4][2] = Datos[Posicion_4][2] + Matriz_P[d][1]; //Sumamos el peso en la tabla datos
                             }
                         }
-
                         Posicion_1 = 0;//Reinico la variable de candidatos
                         Posicion_3 = Posicion_3 + 1;//Varible de no asignados
                     }
@@ -250,34 +223,30 @@ public class Dinamica {
             Asignado = false;//Se reinicia la variable a su estado normal
             Enemigo = false;//Se reinicia la variable a su estado normal
 
-            if (Posicion_1 == Matriz_S.length) {
-                No_Asignadas = Seleccionador(Datos, Combinaciones);
-                Posicion_3 = 0;
-
-                for (int i = 0; i < No_Asignadas.length; i++) {
-                    for (int p = 1; p < Matriz_S.length; p++) {
-                        if (No_Asignadas[i] == Matriz_S[p][0]) {
-                            Matriz_S[p][Villa] = 1;
-                            Contador2 = Contador2 - 1;
-                        }
-                    }
-                }
-                
-
-                //Si el contador no esta en 0, es porque aun hay selecciones pendientes por asignar
-                if (Contador2 != Matriz_S.length - 1) {
-                    Combinador(Matriz_E, Matriz_P, Matriz_S);
-                    Matriz_S[0][Villa] = Villa;
-                    Contador2 = Matriz_S.length - 1;
-                }
-            }
-
             //Si no mas combinaciones por hacer y la varible llego a su estado final, se cierra el while
-            if (Posicion_1 == Matriz_S.length) {
+           /* if (Posicion_1 == Matriz_S.length) {
                 Solucion = true;//Se cambia a true para poder cerrar el while
-            }
-
+            }*/
         }
+        
+        No_Asignadas = Seleccionador(Datos, Combinaciones);
+        Posicion_3 = 0;
+        for (int i = 0; i < No_Asignadas.length; i++) {
+            for (int p = 1; p < Matriz_S.length; p++) {
+                if (No_Asignadas[i] == Matriz_S[p][0]) {
+                    Matriz_S[p][Villa] = 1;
+                    Contador2 = Contador2 - 1;
+                }
+            }
+        }
+
+        //Si el contador no esta en 0, es porque aun hay selecciones pendientes por asignar
+        if (Contador2 != Matriz_S.length - 1) {
+            Combinador(Matriz_E, Matriz_P, Matriz_S);
+            Matriz_S[0][Villa] = Villa;
+            Contador2 = Matriz_S.length - 1;
+        }
+
         
         return Matriz_S;
     }
@@ -290,7 +259,6 @@ public class Dinamica {
         int[] Combinacion = new int[Tamaño];
 
         for (int i = 0; i < Datos.length; i++) {
-
             if (Datos[i][2] > T_Peso) {
                 Identificador = Datos[i][0];
             }
@@ -299,9 +267,7 @@ public class Dinamica {
                     Identificador = Datos[i][0];
                 }
             }
-
         }
-
         for (int n = 0; n < Combinaciones.length; n++) {
             if (Combinaciones[n][0] == Identificador) {
                 for (int e = 0; e < Combinaciones[0].length; e++) {
@@ -309,8 +275,6 @@ public class Dinamica {
                 }
             }
         }
-
         return Combinacion;
     }
-
 }
